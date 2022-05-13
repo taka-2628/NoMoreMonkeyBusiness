@@ -4,7 +4,7 @@ import { GLTFLoader } from '../three.js-master/examples/jsm/loaders/GLTFLoader.j
 //import { MapControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js';
 
 // load 3d model (.glb) from blender
-const monkeyUrl = new URL('../assets/small02.glb', import.meta.url);
+const monkeyUrl = new URL('../assets/topo4.glb', import.meta.url);
 
 // init renderer
 const renderer = new THREE.WebGLRenderer();
