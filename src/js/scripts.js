@@ -32,6 +32,9 @@ camera.position.set(60, 20, 2);
 const orbit = new OrbitControls(camera, renderer.domElement);
 orbit.update();
 
+orbit.maxPolarAngle = Math.PI / 2;
+orbit.minPolarAngle = 0;
+
 /*
 const controls = new MapControls( camera, renderer.domElement );
 controls.target.set(-828, 120, 398)
