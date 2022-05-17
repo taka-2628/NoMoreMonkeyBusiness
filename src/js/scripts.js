@@ -64,6 +64,7 @@ assetLoader.load(monkeyUrl.href, function(gltf) {
     model.position.set( 1, 1, 0 );
     model.scale.set( 1, 1, 1 );
     scene.add(model);
+    
     mixer = new THREE.AnimationMixer(model);
     const clips = gltf.animations;
     clips.forEach(function(clip) {
