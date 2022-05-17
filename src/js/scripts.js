@@ -1,11 +1,11 @@
 import * as THREE from '../three.js-master/examples/build/three.module.js';
 import { OrbitControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from '../three.js-master/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from '../three.js-master/examples/jsm/loaders/DRACOLoader.js';
+//import { DRACOLoader } from '../three.js-master/examples/jsm/loaders/DRACOLoader.js';
 //import { MapControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js';
 
 // load 3d model (.glb) from blender
-const monkeyUrl = new URL('../assets/small-convert-05-02.glb', import.meta.url);
+const monkeyUrl = new URL('../assets/small-convert-06.glb', import.meta.url);
 
 // init renderer
 const renderer = new THREE.WebGLRenderer();
