@@ -55,6 +55,15 @@ controls.maxPolarAngle = Math.PI / 2;
 controls.minPolarAngle = 0;
 */
 
+// raycaster variables
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
+
+let videoCameras = [];
+let objects = [];
+let intersectedObj;
+let objectPositions = [];
+
 // load geometry
 const assetLoader = new GLTFLoader();
 let mixer;
@@ -71,9 +80,34 @@ assetLoader.load(monkeyUrl.href, function(gltf) {
         const action = mixer.clipAction(clip);
         action.play();
     });
+
+    scene.children.forEach(child => {
+        child.children.forEach(grandchild => {            
+            if (grandchild.name.match('^cam')) {
+                videoCameras.push(grandchild);
+            } else {
+                objects.push(grandchild);
+            }       
+        })
+        console.log(videoCameras)
+    });
 }, undefined, function(error) {
     console(error);
 });
+
+// get object world position
+scene.updateMatrixWorld(true);
+objects.matrixAutoUpdate = true;
+videoCameras.matrixAutoUpdate = true;
+
+objects.forEach(worldPosition);
+videoCameras.forEach(worldPosition);
+
+function worldPosition(element){
+    var position = new THREE.Vector3();
+    position.getPositionFromMatrix( element.matrixWorld );
+    objectPositions.push({name: element.name, position: position});
+}
 
 const clock = new THREE.Clock();
 
@@ -85,6 +119,35 @@ function animate() {
 
 renderer.setAnimationLoop(animate);
 
+window.addEventListener('click', (e) => {
+    pointer.x = ( e.clientX / window.innerWidth ) * 2 - 1;
+    pointer.y = - ( e.clientY / window.innerHeight ) * 2 + 1;
+
+    raycaster.setFromCamera(pointer, camera);
+
+    const intersectedObjs = raycaster.intersectObjects(videoCameras);
+    
+    // if there are intersections
+    if ( intersectedObjs.length > 0 ) {
+        // if intersectedObj is new
+        if ( intersectedObj != intersectedObjs[ 0 ].object ) {          
+            intersectedObj = intersectedObjs[ 0 ].object; // set new intersectedObj
+        }
+    } else {//else there are no intersections
+        // if we have an intersectedObj saved
+        intersectedObj = null;
+    }
+    console.log(intersectedObj)
+
+    if (intersectedObj){
+        const imageToShow = document.getElementById(intersectedObj.name);
+        imageToShow.style.display = 'block';
+    } else {
+        Array.from(document.getElementsByClassName("gifs")).forEach(function (element) {
+            element.style.display = 'none';
+        })
+    }
+})
 
 window.addEventListener('resize', function() {
     camera.aspect = window.innerWidth / window.innerHeight;
