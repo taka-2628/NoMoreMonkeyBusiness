@@ -1,7 +1,14 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
 * {
   margin: 0%;
   padding: 0%;
   box-sizing: border-box;
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 header {
@@ -10,22 +17,46 @@ header {
   background-color: black;
   color: white;
   padding: 20px;
-  z-index: 10;
+  z-index: 30;
 }
 
 #intro {
   position: absolute;
-  z-index: 10px;
+  z-index: 20;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
 }
+#intro h1{
+  font-size: 48px;
+  margin-bottom: 24px;
+}
+#intro p{
+  font-size: 24px;
+  width: 680px;
+}
+
+#black {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 15;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.75;
+}
+
 
 .gifs {
   position: absolute;
-  z-index: 10px;
+  z-index: 10;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);

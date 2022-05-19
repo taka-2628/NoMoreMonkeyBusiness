@@ -1,5 +1,5 @@
 import * as THREE from '../three.js-master/examples/build/three.module.js';
-import { OrbitControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js';
+//import { OrbitControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from '../three.js-master/examples/jsm/loaders/GLTFLoader.js';
 import { MapControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js';
 
@@ -42,7 +42,7 @@ controls.dampingFactor = 0.1;
 controls.maxZoom = 1;
 controls.screenSpacePanning = false;
 controls.minDistance = 10;
-controls.maxDistance = 40;
+controls.maxDistance = 60;
 
 //horizontal rotation
 controls.minAzimuthAngle = - Infinity; // default
@@ -103,7 +103,18 @@ function animate() {
 
 renderer.setAnimationLoop(animate);
 
-window.addEventListener('click', (e) => {
+/* intro */
+const black = document.getElementById('black');
+const intro = document.getElementById('intro');
+
+black.addEventListener('click', () => {
+    black.style.display = 'none';
+    intro.style.display = 'none';
+})
+
+
+/* clicking videoCameras and showing/hiding gifs*/
+document.addEventListener('click', (e) => {
     pointer.x = ( e.clientX / window.innerWidth ) * 2 - 1;
     pointer.y = - ( e.clientY / window.innerHeight ) * 2 + 1;
 
