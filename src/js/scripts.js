@@ -1,8 +1,7 @@
 import * as THREE from '../three.js-master/examples/build/three.module.js';
 import { OrbitControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from '../three.js-master/examples/jsm/loaders/GLTFLoader.js';
-//import { DRACOLoader } from '../three.js-master/examples/jsm/loaders/DRACOLoader.js';
-//import { MapControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js';
+import { MapControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js';
 
 // load 3d model (.glb) from blender
 const monkeyUrl = new URL('../assets/small-convert-06.glb', import.meta.url);
@@ -21,30 +20,29 @@ scene.fog = new THREE.Fog( 'white', 30, 125 ); /* FOG */
 
 // init camera
 const camera = new THREE.PerspectiveCamera(
-    45,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
+    45, // Field of View
+    window.innerWidth / window.innerHeight, // Aspect Ratio
+    0.1, // Near View
+    500 // Far View
 );
-camera.position.set(60, 20, 2);
-//camera.lookAt( 0, 0, 0 )
+camera.position.set(40, 20, 30);
 
+/*
 const orbit = new OrbitControls(camera, renderer.domElement);
 orbit.update();
 
 orbit.maxPolarAngle = Math.PI / 2;
 orbit.minPolarAngle = 0;
+*/
 
-/*
 const controls = new MapControls( camera, renderer.domElement );
-controls.target.set(-828, 120, 398)
+controls.target.set(0, 0, 0)
 controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
 controls.dampingFactor = 0.1;
 controls.maxZoom = 1;
-controls.maxPolarAngle = Math.PI / 2;
 controls.screenSpacePanning = false;
-controls.minDistance = 200;
-controls.maxDistance = 400;
+controls.minDistance = 10;
+controls.maxDistance = 40;
 
 //horizontal rotation
 controls.minAzimuthAngle = - Infinity; // default
@@ -53,7 +51,8 @@ controls.maxAzimuthAngle = Infinity; // default
 //vertical rotation
 controls.maxPolarAngle = Math.PI / 2;
 controls.minPolarAngle = 0;
-*/
+
+console.log(scene)
 
 // raycaster variables
 const raycaster = new THREE.Raycaster();
@@ -62,7 +61,6 @@ const pointer = new THREE.Vector2();
 let videoCameras = [];
 let objects = [];
 let intersectedObj;
-let objectPositions = [];
 
 // load geometry
 const assetLoader = new GLTFLoader();
@@ -95,20 +93,6 @@ assetLoader.load(monkeyUrl.href, function(gltf) {
     console(error);
 });
 
-// get object world position
-scene.updateMatrixWorld(true);
-objects.matrixAutoUpdate = true;
-videoCameras.matrixAutoUpdate = true;
-
-objects.forEach(worldPosition);
-videoCameras.forEach(worldPosition);
-
-function worldPosition(element){
-    var position = new THREE.Vector3();
-    position.getPositionFromMatrix( element.matrixWorld );
-    objectPositions.push({name: element.name, position: position});
-}
-
 const clock = new THREE.Clock();
 
 function animate() {
@@ -133,15 +117,14 @@ window.addEventListener('click', (e) => {
         if ( intersectedObj != intersectedObjs[ 0 ].object ) {          
             intersectedObj = intersectedObjs[ 0 ].object; // set new intersectedObj
         }
-    } else {//else there are no intersections
-        // if we have an intersectedObj saved
+    } else { //when there are no intersections
         intersectedObj = null;
     }
     console.log(intersectedObj)
 
     if (intersectedObj){
-        const imageToShow = document.getElementById(intersectedObj.name);
-        imageToShow.style.display = 'block';
+        const gifToShow = document.getElementById(intersectedObj.name);
+        gifToShow.style.display = 'block';
     } else {
         Array.from(document.getElementsByClassName("gifs")).forEach(function (element) {
             element.style.display = 'none';
