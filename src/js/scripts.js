@@ -25,7 +25,7 @@ const camera = new THREE.PerspectiveCamera(
     0.1, // Near View
     500 // Far View
 );
-camera.position.set(40, 20, 30);
+camera.position.set(40, 10, 30);
 
 /*
 const orbit = new OrbitControls(camera, renderer.domElement);
