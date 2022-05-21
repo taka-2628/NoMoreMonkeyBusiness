@@ -112,6 +112,11 @@ black.addEventListener('click', () => {
     intro.style.display = 'none';
 })
 
+intro.addEventListener('click', () => {
+    black.style.display = 'none';
+    intro.style.display = 'none';
+})
+
 
 /* clicking videoCameras and showing/hiding gifs*/
 document.addEventListener('click', (e) => {

@@ -30,6 +30,7 @@ header {
   transform: translate(-50%, -50%);
   color: white;
   text-align: center;
+  cursor: default;
 }
 #intro h1{
   font-size: 48px;
